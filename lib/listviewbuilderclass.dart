@@ -34,10 +34,10 @@ class Listviewbuilderclass extends StatelessWidget {
         padding: EdgeInsets.all(10),
         itemCount: items.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // ek row me 2 containers
+          crossAxisCount: 2, // 1 row me 2 containers
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
-          childAspectRatio: 0.8, // height aur width ka ratio
+          childAspectRatio: 0.75, // height/width ratio
         ),
         itemBuilder: (context, index) {
           return Container(
@@ -46,28 +46,46 @@ class Listviewbuilderclass extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(
-                  items[index]["image"],
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.cover,
-                ),
-                SizedBox(height: 8),
-                Text(
-                  items[index]["title"],
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                // Image top full width
+                ClipRRect(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+                  child: Image.asset(
+                    items[index]["image"],
+                    height: 120,
+                    width: double.infinity, // container ki width k mutabiq
+                    fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(height: 5),
-                Text(
-                  items[index]["price"],
-                  style: TextStyle(
-                    color: Colors.red,
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Title
+                      Text(
+                        items[index]["title"],
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+
+                      SizedBox(height: 5),
+
+                      // Price
+                      Text(
+                        items[index]["price"],
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                )
               ],
             ),
           );
